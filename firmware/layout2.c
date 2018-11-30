@@ -234,7 +234,7 @@ void layoutHome(void)
 		layoutSwipe();
 	}
 	layoutLast = layoutHome;
-	const char *label = storage_isInitialized() ? storage_getLabel() : _("Go to trezor.io/start");
+	const char *label = storage_isInitialized() ? storage_getLabel() : _("Go to AAAAAAAAAAA");
 	const uint8_t *homescreen = storage_getHomescreen();
 	if (homescreen) {
 		BITMAP b;
