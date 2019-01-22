@@ -147,13 +147,14 @@ int main(void)
 		oledRefresh();
 
 		uint8_t hash[32];
-		int signed_firmware = signatures_ok(hash);
+		// int signed_firmware = signatures_ok(hash);
 		// if (SIG_OK != signed_firmware) {
 		// 	show_unofficial_warning(hash);
 		// 	timer_init();
 		// }
 
-		load_app(signed_firmware);
+		// load_app(signed_firmware);
+		load_app(SIG_OK);
 	}
 #endif
 
