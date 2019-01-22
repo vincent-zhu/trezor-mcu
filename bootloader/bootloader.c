@@ -146,7 +146,7 @@ int main(void)
 		oledDrawBitmap(40, 0, &bmp_logo64_empty);
 		oledRefresh();
 
-		uint8_t hash[32];
+		// uint8_t hash[32];
 		// int signed_firmware = signatures_ok(hash);
 		// if (SIG_OK != signed_firmware) {
 		// 	show_unofficial_warning(hash);
