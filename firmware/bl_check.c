@@ -53,18 +53,18 @@ void check_bootloader(void)
 	int r = memory_bootloader_hash(hash);
 
 	if (!known_bootloader(r, hash)) {
-		layoutDialog(&bmp_icon_error, NULL, NULL, NULL, _("Unknown bootloader"), _("detected."), NULL, _("Unplug your TREZOR"), _("contact our support."), NULL);
-		shutdown();
+		// layoutDialog(&bmp_icon_error, NULL, NULL, NULL, _("Unknown bootloader"), _("detected."), NULL, _("Unplug your TREZOR"), _("contact our support."), NULL);
+		// shutdown();
 	}
 
-	// if (is_mode_unprivileged()) {
-	// 	return;
-	// }
+	if (is_mode_unprivileged()) {
+		return;
+	}
 
-	// if (r == 32 && 0 == memcmp(hash, bl_hash, 32)) {
-	// 	// all OK -> done
-	// 	return;
-	// }
+	if (r == 32 && 0 == memcmp(hash, bl_hash, 32)) {
+		// all OK -> done
+		return;
+	}
 
 	// ENABLE THIS AT YOUR OWN RISK
 	// ATTEMPTING TO OVERWRITE BOOTLOADER WITH UNSIGNED FIRMWARE MAY BRICK
