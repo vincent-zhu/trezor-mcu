@@ -146,15 +146,15 @@ int main(void)
 		oledDrawBitmap(40, 0, &bmp_logo64_empty);
 		oledRefresh();
 
-		// uint8_t hash[32];
-		// int signed_firmware = signatures_ok(hash);
-		// if (SIG_OK != signed_firmware) {
-		// 	show_unofficial_warning(hash);
-		// 	timer_init();
-		// }
+		uint8_t hash[32];
+		int signed_firmware = signatures_ok(hash);
+		if (SIG_OK != signed_firmware) {
+			// show_unofficial_warning(hash);
+			timer_init();
+		}
 
-		// load_app(signed_firmware);
-		load_app(SIG_OK);
+		load_app(signed_firmware);
+		// load_app(SIG_OK);
 	}
 #endif
 
