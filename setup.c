@@ -165,52 +165,52 @@ void setupApp(void)
 void mpu_config(void)
 {
 #if MEMORY_PROTECT
-	// Disable MPU
-	MPU_CTRL = 0;
+	// // Disable MPU
+	// MPU_CTRL = 0;
 
-	// Note: later entries overwrite previous ones
-	// Flash (0x08000000 - 0x0807FFFF, 1 MiB, read-only)
-	MPU_RBAR = FLASH_BASE | MPU_RBAR_VALID | (0 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_FLASH | MPU_RASR_SIZE_1MB | MPU_RASR_ATTR_AP_PRO_URO;
+	// // Note: later entries overwrite previous ones
+	// // Flash (0x08000000 - 0x0807FFFF, 1 MiB, read-only)
+	// MPU_RBAR = FLASH_BASE | MPU_RBAR_VALID | (0 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_FLASH | MPU_RASR_SIZE_1MB | MPU_RASR_ATTR_AP_PRO_URO;
 
-	// Metadata in Flash is read-write when unlocked
-	// (0x08008000 - 0x0800FFFF, 32 KiB, read-write, execute never)
-	MPU_RBAR = (FLASH_BASE + 0x8000) | MPU_RBAR_VALID | (1 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_FLASH | MPU_RASR_SIZE_32KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
+	// // Metadata in Flash is read-write when unlocked
+	// // (0x08008000 - 0x0800FFFF, 32 KiB, read-write, execute never)
+	// MPU_RBAR = (FLASH_BASE + 0x8000) | MPU_RBAR_VALID | (1 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_FLASH | MPU_RASR_SIZE_32KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
 
-	// SRAM (0x20000000 - 0x2001FFFF, read-write, execute never)
-	MPU_RBAR = SRAM_BASE | MPU_RBAR_VALID | (2 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_SRAM | MPU_RASR_SIZE_128KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
+	// // SRAM (0x20000000 - 0x2001FFFF, read-write, execute never)
+	// MPU_RBAR = SRAM_BASE | MPU_RBAR_VALID | (2 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_SRAM | MPU_RASR_SIZE_128KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
 
-	// Peripherals (0x40000000 - 0x4001FFFF, read-write, execute never)
-	MPU_RBAR = PERIPH_BASE | MPU_RBAR_VALID | (3 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_128KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
-	// Peripherals (0x40020000 - 0x40023FFF, read-write, execute never)
-	MPU_RBAR = 0x40020000 | MPU_RBAR_VALID | (4 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_16KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
-	// Flash controller is protected
-	// (0x40023C00 - 0x40023FFF, privileged read-write, user no, execute never)
-	MPU_RBAR = 0x40023c00 | MPU_RBAR_VALID | (5 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_1KB | MPU_RASR_ATTR_AP_PRW_UNO | MPU_RASR_ATTR_XN;
-	// Don't enable DMA controller access
-	// Peripherals (0x50000000 - 0x5007ffff, read-write, execute never)
-	MPU_RBAR = 0x50000000 | MPU_RBAR_VALID | (6 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_512KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
-	// SYSCFG_* registers are disabled
-	// (0x40013800 - 0x40013BFF, read-only, execute never)
-	MPU_RBAR = 0x40013800 | MPU_RBAR_VALID | (7 << MPU_RBAR_REGION_LSB);
-	MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_1KB | MPU_RASR_ATTR_AP_PRO_URO | MPU_RASR_ATTR_XN;
+	// // Peripherals (0x40000000 - 0x4001FFFF, read-write, execute never)
+	// MPU_RBAR = PERIPH_BASE | MPU_RBAR_VALID | (3 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_128KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
+	// // Peripherals (0x40020000 - 0x40023FFF, read-write, execute never)
+	// MPU_RBAR = 0x40020000 | MPU_RBAR_VALID | (4 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_16KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
+	// // Flash controller is protected
+	// // (0x40023C00 - 0x40023FFF, privileged read-write, user no, execute never)
+	// MPU_RBAR = 0x40023c00 | MPU_RBAR_VALID | (5 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_1KB | MPU_RASR_ATTR_AP_PRW_UNO | MPU_RASR_ATTR_XN;
+	// // Don't enable DMA controller access
+	// // Peripherals (0x50000000 - 0x5007ffff, read-write, execute never)
+	// MPU_RBAR = 0x50000000 | MPU_RBAR_VALID | (6 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_512KB | MPU_RASR_ATTR_AP_PRW_URW | MPU_RASR_ATTR_XN;
+	// // SYSCFG_* registers are disabled
+	// // (0x40013800 - 0x40013BFF, read-only, execute never)
+	// MPU_RBAR = 0x40013800 | MPU_RBAR_VALID | (7 << MPU_RBAR_REGION_LSB);
+	// MPU_RASR = MPU_RASR_ENABLE | MPU_RASR_ATTR_PERIPH | MPU_RASR_SIZE_1KB | MPU_RASR_ATTR_AP_PRO_URO | MPU_RASR_ATTR_XN;
 
-	// Enable MPU
-	MPU_CTRL = MPU_CTRL_ENABLE | MPU_CTRL_HFNMIENA;
+	// // Enable MPU
+	// MPU_CTRL = MPU_CTRL_ENABLE | MPU_CTRL_HFNMIENA;
 
-	// Enable memory fault handler
-	SCB_SHCSR |= SCB_SHCSR_MEMFAULTENA;
+	// // Enable memory fault handler
+	// SCB_SHCSR |= SCB_SHCSR_MEMFAULTENA;
 
-	__asm__ volatile("dsb");
-	__asm__ volatile("isb");
+	// __asm__ volatile("dsb");
+	// __asm__ volatile("isb");
 
-	// Switch to unprivileged software execution to prevent access to MPU
-	set_mode_unprivileged();
+	// // Switch to unprivileged software execution to prevent access to MPU
+	// set_mode_unprivileged();
 #endif
 }
