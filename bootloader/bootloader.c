@@ -149,7 +149,9 @@ int main(void)
 		uint8_t hash[32];
 		int signed_firmware = signatures_ok(hash);
 		if (SIG_OK != signed_firmware) {
-			show_unofficial_warning(hash);
+			// show_unofficial_warning(hash);
+			delay(100000);
+			buttonUpdate();
 			timer_init();
 		}
 
